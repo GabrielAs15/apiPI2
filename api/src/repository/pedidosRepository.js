@@ -17,3 +17,20 @@ export async function pedidos() {
     const [linhas] = await con.query(comando);
     return linhas;
 }
+
+export async function buscaPorNome(nome){
+    const comando = `
+    SELECT id_cadastro		     id,
+                qtd_hamburgueres     hamburgueres, 
+                qtd_bebidas          bebidas,
+                qtd_porcoes          porcoes, 
+                qtd_sobremesas        sobremesa, 
+                nm_cliente           cliente,
+                ds_rua               rua
+           FROM tb_cadastro
+           WHERE nm-cliente   like   ? `;
+    
+    const [linhas] = await con.query(comando, [`%${nome}%`]);
+    return linhas;          
+
+}

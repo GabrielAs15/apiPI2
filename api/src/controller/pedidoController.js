@@ -22,4 +22,21 @@ server.get('/pedidos/', async (req, resp) => {
     }
 })
 
+server.get('/pedidos/busca', async (req, resp) => {
+    try {
+        const { nome } = req.query;
+        
+        const resposta = await buscaPorNome(nome);
+
+        if (resposta.length == 0)
+            resp.status(404).send([])
+        else
+            resp.send(resposta);
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+})
+
 export default server;
